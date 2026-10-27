@@ -1,0 +1,5 @@
+# Godot-generated editor cache and import files
+.godot/
+.export/
+export.cfg
+export_presets.cfg
