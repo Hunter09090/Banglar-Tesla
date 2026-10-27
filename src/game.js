@@ -283,7 +283,6 @@ export class Game {
     this.ended = true;
     this.running = false;
     this.save.bestScore = Math.max(this.save.bestScore, Math.floor(this.state.score));
-    this.save.totalCash += this.state.cash;
     this.save.lifetimeScore += Math.floor(this.state.score);
     writeSave(this.save);
     const reason = kind === "chaos"
@@ -321,9 +320,9 @@ export class Game {
   drawCity(ctx,w,horizon) {
     const buildings = 15;
     for (let i=0;i<buildings;i++) {
-      const bw = w/(buildings+2)*random(0.65,1.25);
+      const bw = w/(buildings+2)*(0.65+((i*17)%13)/20);
       const x = i*w/buildings;
-      const bh = horizon*random(0.20,0.75);
+      const bh = horizon*(0.20+((i*29)%17)/32);
       const colors = ["#507e83","#628a8b","#789899","#53767e","#8da7a1"];
       ctx.fillStyle = colors[i%colors.length];
       ctx.fillRect(x,horizon-bh,bw,bh);
