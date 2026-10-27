@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07131d">
+  <meta name="description" content="বাংলার টেসলা — বাংলাদেশের শহুরে যানজটের মধ্যে মিশন-ভিত্তিক ড্রাইভিং গেম।">
+  <title>বাংলার টেসলা | Banglar Tesla</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="বাংলার টেসলা হোম">
+        <span class="brand-mark">BT</span>
+        <span><strong>বাংলার টেসলা</strong><small>ঢাকা • চট্টগ্রাম • রাস্তায় নামো!</small></span>
+      </a>
+      <button id="sound-toggle" class="icon-button" type="button" aria-pressed="false" title="সাউন্ড পরে যোগ হবে">♪ <span>সাউন্ড</span></button>
+    </header>
+
+    <section class="game-panel" aria-label="গেম">
+      <div class="hud">
+        <div class="hud-cell"><span>ক্যাশ</span><strong id="cash-value">৳0</strong></div>
+        <div class="hud-cell"><span>স্কোর</span><strong id="score-value">0</strong></div>
+        <div class="hud-cell"><span>ব্যাটারি</span><strong id="battery-value">100%</strong><div class="meter"><i id="battery-meter"></i></div></div>
+        <div class="hud-cell"><span>বিশৃঙ্খলা</span><strong id="chaos-value">0%</strong><div class="meter danger"><i id="chaos-meter"></i></div></div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="game-canvas" aria-label="বাংলার টেসলা ড্রাইভিং গেম"></canvas>
+        <div id="start-screen" class="overlay">
+          <div class="title-emblem">🛺⚡</div>
+          <p class="eyebrow">বাংলাদেশি সিটি ড্রাইভিং</p>
+          <h1>বাংলার <span>টেসলা</span></h1>
+          <p class="intro">যানজট সামলাও, যাত্রী পৌঁছে দাও, আর ঠিক সময়ে Jet Boost ব্যবহার করো!</p>
+          <div class="mission-preview"><span class="pulse-dot"></span><span id="mission-intro">প্রথম যাত্রী তোমার অপেক্ষায়।</span></div>
+          <button id="start-button" class="primary-button" type="button">গেম শুরু করো <span>→</span></button>
+          <p class="small-note">প্রোটোটাইপ ০.১ • মোবাইল ও কম্পিউটার</p>
+        </div>
+        <div id="message-banner" class="message-banner" role="status" aria-live="polite"></div>
+        <div id="pause-screen" class="overlay hidden">
+          <p class="eyebrow">একটু বিরতি</p><h2>গাড়ি থামাওনি তো?</h2>
+          <button id="resume-button" class="primary-button" type="button">আবার চালাই <span>→</span></button>
+        </div>
+        <div id="gameover-screen" class="overlay hidden">
+          <p class="eyebrow">ট্রিপ শেষ</p><h2 id="gameover-title">পুলিশ ধরে ফেলেছে!</h2>
+          <p id="gameover-copy">আবার চেষ্টা করো।</p>
+          <button id="restart-button" class="primary-button" type="button">আবার খেলো <span>↻</span></button>
+        </div>
+      </div>
+      <div class="control-bar">
+        <div class="control-hint"><span class="keycap">A</span><span class="keycap">D</span><span>স্টিয়ার</span><span class="hint-divider">•</span><span class="keycap">W</span><span>গতি</span><span class="hint-divider">•</span><span class="keycap">SPACE</span><span>বুস্ট</span><span class="hint-divider">•</span><span class="keycap">E</span><span>যাত্রী</span></div>
+        <button id="pause-button" class="pause-button" type="button">Ⅱ বিরতি</button>
+      </div>
+    </section>
+
+    <section class="mobile-controls" aria-label="মোবাইল কন্ট্রোল">
+      <div class="steer-controls">
+        <button data-control="left" class="touch-button steer" aria-label="বামে যাও">←</button>
+        <button data-control="right" class="touch-button steer" aria-label="ডানে যাও">→</button>
+      </div>
+      <div class="drive-controls">
+        <button data-control="brake" class="touch-button utility" aria-label="ব্রেক">ব্রেক</button>
+        <button data-control="boost" class="touch-button boost" aria-label="জেট বুস্ট">⚡ BOOST</button>
+        <button data-control="accelerate" class="touch-button accelerate" aria-label="গতি বাড়াও">গতি ↑</button>
+        <button data-control="interact" class="touch-button utility" aria-label="যাত্রী ওঠাও বা নামাও">যাত্রী E</button>
+      </div>
+    </section>
+
+    <section class="below-grid">
+      <article class="info-card mission-card"><div class="card-icon">📍</div><div><span class="card-label">বর্তমান মিশন</span><h2 id="mission-title">যাত্রী খুঁজে বের করো</h2><p id="mission-copy">রাস্তার চিহ্নের কাছে পৌঁছে E চাপো, তারপর গন্তব্যে নিয়ে যাও।</p></div><span id="mission-state" class="status-chip">শুরু হয়নি</span></article>
+      <article class="info-card"><div class="card-icon">🧾</div><div><span class="card-label">ড্রাইভার রেকর্ড</span><div class="record-row"><span>সেরা স্কোর</span><strong id="best-score">0</strong></div><div class="record-row"><span>সম্পন্ন ট্রিপ</span><strong id="trips-value">0</strong></div><div class="record-row"><span>মোট আয়</span><strong id="total-cash">৳0</strong></div></div></article>
+    </section>
+    <footer>প্রথমে মজবুত ড্রাইভিং • পরে আরও বাস্তব শহর, যানবাহন ও 3D। <a href="https://github.com/Hunter09090/Banglar-Tesla" target="_blank" rel="noreferrer">প্রজেক্ট রিপোজিটরি ↗</a></footer>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
