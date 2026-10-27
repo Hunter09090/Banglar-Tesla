@@ -220,11 +220,11 @@ func _touch_button(layer: CanvasLayer, title: String, offset: Vector2, left_side
 	var button := Button.new()
 	button.text = title
 	button.custom_minimum_size = Vector2(82, 68) if title != "BOOST" else Vector2(120, 68)
-	button.position = offset
 	if left_side:
 		button.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
 	else:
 		button.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	button.position = offset
 	button.add_theme_font_size_override("font_size", 20)
 	layer.add_child(button)
 	return button
