@@ -1,41 +1,36 @@
 # বাংলার টেসলা | Banglar Tesla
 
-A Bangladesh-inspired city traffic driving game. The project is being built in small, testable milestones so the core controls, gameplay rules, and save format stay stable as the game grows.
+A Bangladesh-inspired driving game set in busy Dhaka/Chattogram-like traffic. Development is moving toward a real 3D game for **Android APK and browser**, using small, verifiable milestones.
 
-## Project principles
-- **Mobile-first, desktop-friendly:** touch controls and keyboard support.
-- **No framework or build step for the first playable milestone:** easy to run and publish on GitHub Pages.
-- **Small modules:** input, game state, rendering, and persistence stay separate.
-- **One source of truth:** balance values and save version are centralized.
-- **Honest milestones:** the current build is a 2D perspective arcade prototype, not realistic 3D yet.
+## Current builds
 
-## Run
-Open `index.html` in a modern browser, or serve the repository with GitHub Pages.
+- **Browser reference prototype:** open the repository's index.html or the GitHub Pages site. This is a 2D perspective/arcade prototype, not 3D.
+- **Godot 3D first milestone:** source project is in [godot/](godot/). It uses generated 3D geometry so it can be tested without downloading art assets. It is an early vertical slice, not a finished realistic game and not yet an exported APK/Web build.
 
-## Controls
+## Run the 3D project on Windows
+
+1. Download the standard Godot 4 editor from the [official Godot downloads](https://godotengine.org/download/windows/). Use the standard GDScript version, not the .NET version.
+2. Extract and open Godot.
+3. In the Project Manager, choose **Import** and select godot/project.godot from this repository.
+4. Open the project and press **F6/F5** (or click Run Project) to run the scene.
+
+The first 3D milestone uses Godot's Compatibility renderer to keep the shared Android/browser path practical. Actual performance depends on the computer and phone, so it must be tested before adding heavy visual effects.
+
+## 3D prototype controls
+
 - **A / D** or **← / →**: steer
-- **W / ↑**: accelerate
-- **S / ↓**: brake
-- **Space**: Jet Boost (short burst; consumes charge)
-- **E**: pick up / drop off a passenger when prompted
-- Touch the on-screen buttons on mobile.
+- **Space**: short Jet Boost, consuming charge
+- **On-screen buttons**: steer and boost on touch devices
+- Avoid traffic; collisions increase the hit counter and reduce boost charge.
 
-## Roadmap
-1. **Foundation (current):** responsive canvas, reliable input, traffic, boost charge, passenger missions, local save, readable HUD.
-2. **Driving feel:** handling and collision tuning, camera options, sound, pause/restart.
-3. **Bangladesh details:** rickshaws, buses, pedestrians, roadworks, traffic police, weather, markets, Bangla passenger dialogue.
-4. **Visual upgrade:** replace primitive drawings with licensed/original assets and move toward a proper 3D engine only after the gameplay loop is proven.
-5. **Progression:** mission variety, upgrades, achievements, cloud save.
-6. **Multiplayer:** only after single-player systems and server/security requirements are defined.
+## Stable architecture decisions
 
-## Architecture
-- `src/main.js`: app startup and UI wiring
-- `src/game.js`: simulation, missions, collisions, rendering
-- `src/input.js`: keyboard and touch input
-- `src/style.css`: responsive interface
+- Godot 4 + GDScript for the 3D game.
+- Android APK and browser are target platforms.
+- Web export is planned as single-threaded for simpler GitHub Pages hosting.
+- Root HTML/JavaScript prototype remains a reference until the 3D version is tested.
+- Start with procedural geometry; replace it only with original or properly licensed assets.
+- Local save before cloud save; single-player before multiplayer.
+- One focused change per commit; don't claim a feature is complete before it has been tested.
 
-## Save data
-Progress is stored locally in the browser. The save includes a version field so future updates can migrate data safely. Clearing browser storage removes local progress.
-
-## Important
-This repository is the canonical project. Changes should be small, tested, and committed with clear messages. Do not add fake multiplayer or claim 3D/cloud features until implemented and tested.
+See [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) for architecture boundaries, milestone acceptance criteria and change discipline.
